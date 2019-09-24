@@ -13,4 +13,7 @@ Rails.application.routes.draw do
       patch '/updateprofile', to: 'users#current_user_edit'
       post '/createevent', to: 'events#create'
       get '/collaborations', to: 'userprojects#my_collaborations'
+      get '/collaborating', to: 'userprojects#collaborating'
+      patch '/postcomment', to: 'post#comments'
+      patch '/addcollaboration', to: 'userprojects#addCollaboration'
 end

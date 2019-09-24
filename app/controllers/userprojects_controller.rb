@@ -1,20 +1,31 @@
 class UserprojectsController < ApplicationController
-    skip_before_action :authorized, only: [:create, :index, :show]
+    skip_before_action :authorized, only: [:create, :index, :show, :addCollaboration]
 
     def index
-        @projects = Userproject.all
-        render json: @projects
+        @collaborations = Userproject.all
+        render json: @collaborations
     end
 
     def my_collaborations
         @current_user_id = current_user.id
-        my_projects = Userproject.where(user_id: @current_user_id)
-        if my_projects == nill 
-          render json: {error: 'no current collaborations'}
-        else
+        my_projects = Userproject.where(user_id: @current_user_id, collaborating: false)
+        # if my_projects == nil 
+        #   render json: {error: 'no current collaborations'}
+        # else
         render json: my_projects
-        end
+        # end
     end
+
+
+    def collaborating
+      @current_user_id = current_user.id
+      my_projects = Userproject.where(user_id: @current_user_id, collaborating: true)
+      if my_projects == nil 
+        render json: {error: 'no current collaborations'}
+      else
+      render json: my_projects
+      end
+  end
 
       
     def show
@@ -28,6 +39,12 @@ class UserprojectsController < ApplicationController
          render json: {userproject: @project}, status: :created
         # else 
         # render json: { error: 'failed to create post' }, status: :not_acceptable
+    end
+
+    def addCollaboration
+      @project = Userproject.find(params[:id])
+      @project.update(user_project_params)
+      render json: @project
     end
 
     
@@ -47,7 +64,8 @@ class UserprojectsController < ApplicationController
       private
     
       def user_project_params
-        params.require(:userproject).permit(:user_id, :post_id)
+        params.require(:userproject).permit(:user_id, :post_id, :comment, :interested,  :collaborating)
       end
 end
+#
 

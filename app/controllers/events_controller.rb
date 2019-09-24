@@ -21,4 +21,3 @@ class EventsController < ApplicationController
     params.require(:event).permit(:id, :post_id, :title, :start, :end)
   end
 end
-# 

@@ -2,7 +2,8 @@ class PostsController < ApplicationController
     skip_before_action :authorized, only: [:create, :index, :show]
 
     def index
-        posts = Post.all
+        posts = Post.all 
+        # @posts = posts.where(collaborating: false)
         render json: posts
       end
     
@@ -17,6 +18,12 @@ class PostsController < ApplicationController
          render json: {post: @post}, status: :created
         # else 
         # render json: { error: 'failed to create post' }, status: :not_acceptable
+      end
+
+      def comments
+        @post = Post.find(params[:id])
+        @post.update(post_params)
+        render json: @post
       end
 
       # def update
@@ -34,7 +41,7 @@ class PostsController < ApplicationController
       private
     
       def post_params
-        params.require(:post).permit(:description, :needed_skillset, :snippet, :user_id)
+        params.require(:post).permit(:description, :needed_skillset, :snippet, :comments, :user_id)
       end
 
     #   

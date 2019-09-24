@@ -26,11 +26,11 @@ post_b = Post.create(user_id: 2, description: "Want to record new music I have w
 post_c = Post.create(user_id: 3, description: "Looking for a driven student to help build a website", needed_skillset: "developer", snippet: "blogger needing help")
 post_d = Post.create(user_id: 4, description: "Just got a new camera and need models to help build my resume", needed_skillset: "model", snippet: "want free images?")
 
-
-project_a = Userproject.create(user_id: 2, post_id: 1)
-project_a = Userproject.create(user_id: 3, post_id: 2)
-project_a = Userproject.create(user_id:4 , post_id: 3)
-
+project_a = Userproject.create(user_id: 1, post_id: 2, interested: true, collaborating: true, comment: "excited")
+project_b = Userproject.create(user_id: 3, post_id: 2, interested: false, collaborating: false, comment: "would love to her more")
+project_c = Userproject.create(user_id: 2, post_id: 1, interested: false, collaborating: false, comment: "my email is ")
+project_d = Userproject.create(user_id: 4 , post_id: 3, interested: false, collaborating: false, comment: "are you still looking for help")
+project_d = Userproject.create(user_id: 1 , post_id: 4, interested: true, collaborating: false, comment: "?")
 
 event1 = Event.create!({
     post_id: 1,
